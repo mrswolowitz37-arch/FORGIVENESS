@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forgiveness Request</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .bg-slideshow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg-slideshow img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.5s;
+    }
+    .bg-slideshow img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: linear-gradient(120deg, rgba(255,255,255,0.7) 30%, rgba(224,231,255,0.55) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(90,100,110,0.18);
+      max-width: 400px;
+      width: 100%;
+      padding: 28px 18px 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px auto;
+      top: 0;
+    }
+    .letter-card {
+      background: #f1f5f9cc;
+      border-radius: 12px;
+      padding: 18px 14px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(90,100,110,0.07);
+      font-size: 1rem;
+      color: #374151;
+      line-height: 1.55;
+      text-align: left;
+      width: 100%;
+      word-break: break-word;
+    }
+    .letter-card::before {
+      content: "💌";
+      font-size: 1.6rem;
+      margin-right: 8px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .question {
+      font-size: 1.13rem;
+      font-weight: 500;
+      color: #2d3748;
+      margin-bottom: 16px;
+      text-align: center;
+      transition: transform 0.13s;
+    }
+    .shake {
+      animation: shake 0.4s;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+      100% { transform: translateX(0); }
+    }
+    .button-group {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 5px;
+    }
+    button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 2px 8px rgba(90,100,110,0.08);
+    }
+    .yes-btn {
+      background: linear-gradient(90deg, #4ade80 0%, #22d3ee 100%);
+      color: #fff;
+    }
+    .yes-btn:hover {
+      background: linear-gradient(90deg, #22d3ee 0%, #4ade80 100%);
+      transform: scale(1.08);
+    }
+    .no-btn {
+      background: #f87171;
+      color: #fff;
+    }
+    .no-btn:hover {
+      background: #ef4444;
+      transform: scale(1.08);
+    }
+    .celebration {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      color: #10b981;
+      animation: pop 1s;
+      font-weight: 600;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      80% { transform: scale(1.15); opacity: 1;}
+      100% { transform: scale(1); opacity: 1;}
+    }
+    .confetti-canvas {
+      position: fixed;
+      pointer-events: none;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      z-index: 10;
+    }
+    .please-message {
+      display: none;
+      font-size: 1.09rem;
+      color: #e11d48;
+      margin-top: 9px;
+      text-align: center;
+      animation: fadeInPlease 0.8s;
+      font-weight: 500;
+    }
+    @keyframes fadeInPlease {
+      0% { opacity: 0; transform: translateY(-8px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 500px) {
+      .container {
+        max-width: 96vw;
+        padding: 16px 4vw;
+      }
+      .letter-card {
+        font-size: 0.96rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-slideshow">
+    <img src="image1.jpg" class="active" alt="background 1">
+    <img src="image2.jpg" alt="background 2">
+    <img src="image3.jpg" alt="background 3">
+    <img src="image4.jpg" alt="background 4">
+  </div>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="letter-card">
+      Ninnu chala bada pettenu amma chaaaala sorry nuvvu chala chesev nakosam relationship lo nenu nikosam eppudu em cheyale nuvvu kalavale anna okka vishayam mida godava pettesna sorry amma,Nikosam nenu martanu amma kane nuvvu lekapote undalenu i can never move on from you,you are the greatest girl i have ever met and the most beautiful one also chaaala manchi danivi amma naku oka second chance ivvu eppudu edipiya ninnu chala manchiga chusukunta Promise
+    </div>
+    <div id="question-block">
+      <div id="question-text" class="question">Do you forgive me?</div>
+      <div class="button-group">
+        <button class="yes-btn" onclick="handleAnswer('yes')">Yes</button>
+        <button class="no-btn" onclick="handleAnswer('no')">No</button>
+      </div>
+      <div id="please-message" class="please-message">Please 🥺 <span style="font-size:1.3em;">😭</span></div>
+    </div>
+    <div id="celebration" class="celebration">
+      <span>🎉 Thank you! You forgave me! 🎉</span>
+      <span style="font-size:1.1rem;color:#22d3ee; margin-top:8px;">You're wonderful! 💖</span>
+    </div>
+  </div>
+  <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+  <script>
+    // Slideshow logic
+    const slides = document.querySelectorAll('.bg-slideshow img');
+    let currentSlide = 0;
+    setInterval(() => {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }, 4000);
+
+    function handleAnswer(ans) {
+      const questionBlock = document.getElementById('question-block');
+      const questionText = document.getElementById('question-text');
+      const celebration = document.getElementById('celebration');
+      const pleaseMessage = document.getElementById('please-message');
+      if (ans === 'no') {
+        questionText.classList.add('shake');
+        pleaseMessage.style.display = 'block';
+        setTimeout(() => {
+          questionText.classList.remove('shake');
+        }, 400);
+      } else {
+        questionBlock.style.display = 'none';
+        celebration.style.display = 'flex';
+        launchConfetti();
+      }
+    }
+
+    // Confetti animation
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.style.display = 'block';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let particles = [];
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          r: 6 + Math.random() * 7,
+          d: Math.random() * 10,
+          color: `hsl(${Math.random()*360},80%,60%)`,
+          tilt: Math.random() * 12
+        });
+      }
+      let angle = 0;
+      let confettiActive = true;
+      function draw() {
+        if (!confettiActive) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        angle += 0.01;
+        for (let i = 0; i < particles.length; i++) {
+          let p = particles[i];
+          p.y += Math.cos(angle + p.d) + 2 + p.r/2;
+          p.x += Math.sin(angle) * 2;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, false);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+      setTimeout(() => {
+        confettiActive = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'none';
+      }, 4200);
+    }
+  </script>
+</body>
+</html>
